@@ -16,19 +16,15 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Mechanism;
 
 public class MySubsystem extends SubsystemBase{
-    final GenericEntry idEntry;
-    final GenericEntry nameEntry;
     final CANSparkMax sparkMax;
 
-    public MySubsystem(GenericEntry id, GenericEntry name) {
-        this.idEntry = id;
-        this.nameEntry = name;
-        sparkMax = new CANSparkMax(11, MotorType.kBrushless);
+    public MySubsystem() {
+        sparkMax = new CANSparkMax(20, MotorType.kBrushless);
     }
 
     public Command getSysIdCommand(boolean forward, boolean dynamic, double timeout) {
         // int id = (int)idEntry.getInteger(0);
-        String name = nameEntry.getString("main_motor");
+        String name = "counter-clockwise";
         // CANSparkMax motor = new CANSparkMax(id, MotorType.kBrushless);
         SysIdRoutine routine = generateSysIdRoutine(sparkMax, name, this);
         Direction direction = forward ? Direction.kForward : Direction.kReverse;
@@ -42,6 +38,10 @@ public class MySubsystem extends SubsystemBase{
 
     private static SysIdRoutine generateSysIdRoutine(CANSparkMax motor, String name, Subsystem subsystem) {
         RelativeEncoder encoder = motor.getEncoder();
+        // final double timeout = 5;
+        // final double maxVoltage = 1.8;
+        // final double rampRate = maxVoltage/timeout;
+        // Config config = new Config(Units.Volts.of(rampRate).per(Units.Second), Units.Volts.of(maxVoltage), Units.Seconds.of(timeout));
         Config config = new Config();
         Mechanism mechanism = new Mechanism(
             voltage -> {

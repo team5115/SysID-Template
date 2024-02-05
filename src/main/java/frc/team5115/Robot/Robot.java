@@ -11,10 +11,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void robotInit() {
-        ShuffleboardTab shuffleboardTab = Shuffleboard.getTab("SmartDashboard");
-        GenericEntry id = shuffleboardTab.add("can id", 0).getEntry();
-        GenericEntry name = shuffleboardTab.add("name", "motor-main").getEntry();
-        subsystem = new MySubsystem(id, name);
+        subsystem = new MySubsystem();
     }
 
     @Override

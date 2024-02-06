@@ -1,17 +1,16 @@
 package frc.team5115.Robot;
 
-import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 public class Robot extends TimedRobot {
     MySubsystem subsystem;
+    I2CHandler bno;
 
     @Override
     public void robotInit() {
-        subsystem = new MySubsystem();
+        bno = new I2CHandler();
+        subsystem = new MySubsystem(bno);
     }
 
     @Override
@@ -35,5 +34,6 @@ public class Robot extends TimedRobot {
 
     @Override
     public void testPeriodic () {
+        bno.updatePitch();
     }
 }

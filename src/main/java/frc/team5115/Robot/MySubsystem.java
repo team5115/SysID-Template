@@ -4,7 +4,6 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
-import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.units.Units;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -17,15 +16,14 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Mechanism;
 
 public class MySubsystem extends SubsystemBase{
     final CANSparkMax sparkMax;
+    final int id = 4;
+    final String name = "front-left-motor";
 
     public MySubsystem() {
-        sparkMax = new CANSparkMax(20, MotorType.kBrushless);
+        sparkMax = new CANSparkMax(id, MotorType.kBrushless);
     }
 
     public Command getSysIdCommand(boolean forward, boolean dynamic, double timeout) {
-        // int id = (int)idEntry.getInteger(0);
-        String name = "counter-clockwise";
-        // CANSparkMax motor = new CANSparkMax(id, MotorType.kBrushless);
         SysIdRoutine routine = generateSysIdRoutine(sparkMax, name, this);
         Direction direction = forward ? Direction.kForward : Direction.kReverse;
         

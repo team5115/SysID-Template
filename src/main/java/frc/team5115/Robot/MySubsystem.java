@@ -19,6 +19,10 @@ public class MySubsystem extends SubsystemBase{
     final int id = 4;
     final String name = "front-left-motor";
 
+    static final double timeout = 5;
+    static final double maxVoltage = 1.8;
+    static final double rampRate = maxVoltage/timeout;
+
     public MySubsystem() {
         sparkMax = new CANSparkMax(id, MotorType.kBrushless);
     }
@@ -36,9 +40,7 @@ public class MySubsystem extends SubsystemBase{
 
     private static SysIdRoutine generateSysIdRoutine(CANSparkMax motor, String name, Subsystem subsystem) {
         RelativeEncoder encoder = motor.getEncoder();
-        // final double timeout = 5;
-        // final double maxVoltage = 1.8;
-        // final double rampRate = maxVoltage/timeout;
+        
         // Config config = new Config(Units.Volts.of(rampRate).per(Units.Second), Units.Volts.of(maxVoltage), Units.Seconds.of(timeout));
         Config config = new Config();
         Mechanism mechanism = new Mechanism(
